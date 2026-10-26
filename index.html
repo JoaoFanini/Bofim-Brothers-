@@ -123,7 +123,7 @@
   @keyframes marquee{to{transform:translateX(-50%)}}
 
   /* sections */
-  section{padding:clamp(80px,11vw,140px) 0}
+  section{padding:clamp(80px,11vw,140px) 0;scroll-margin-top:60px}
   .section-head{max-width:44rem;margin-bottom:3.2rem}
   .section-head h2{font-size:clamp(2.4rem,5.5vw,4.4rem);margin-top:.9rem}
   .section-head p{color:var(--muted);margin-top:1rem;font-size:1.05rem}
@@ -141,11 +141,32 @@
   .card .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;background:rgba(226,178,60,.1);color:var(--gold);border:1px solid rgba(226,178,60,.25)}
   .card h3{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:2rem;line-height:1;margin:1.1rem 0 .6rem}
   .card p{color:var(--muted);font-size:.95rem}
+  .card .prof{margin-top:1.1rem;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-2)}
+  .card .prof+.time{margin-top:.8rem}
+  .card-cta{background:linear-gradient(150deg,rgba(226,178,60,.16),rgba(226,178,60,.03));border-color:rgba(226,178,60,.35);display:flex;flex-direction:column;align-items:flex-start}
+  .card-cta .btn{padding:.85rem 1.3rem;font-size:.88rem}
+  @media(min-width:961px){.grid .card-cta{grid-column:span 2}}
   .card .time{display:flex;align-items:center;gap:.55rem;margin-top:1.4rem;padding-top:1.1rem;border-top:1px dashed var(--line);font-weight:600;font-size:.92rem}
   .card .time svg{width:17px;height:17px;color:var(--gold);flex:none}
   .card .link{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;font-size:.85rem;font-weight:700;color:var(--gold)}
-  .card .link svg{width:15px;transition:transform .3s var(--ease)}
+  .card .link svg{width:15px;height:15px;transition:transform .3s var(--ease)}
   .card:hover .link svg{transform:translateX(4px)}
+
+  /* schedule */
+  .sched{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1.2rem}
+  .days{display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem;margin-bottom:1rem}
+  .days button{font:inherit;cursor:pointer;background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:12px;padding:.8rem .2rem;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;transition:all .25s var(--ease);position:relative}
+  .days button:hover{color:var(--text);border-color:rgba(226,178,60,.4)}
+  .days button[aria-selected=true]{background:var(--gold);color:#141006;border-color:var(--gold);box-shadow:0 8px 24px -10px rgba(226,178,60,.7)}
+  .days button .today{position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:#e5484d}
+  .slots{list-style:none;display:grid;gap:.6rem}
+  .slot{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:1rem;padding:1rem 1.1rem;border-radius:14px;background:rgba(0,0,0,.28);border:1px solid var(--line);opacity:0;transform:translateX(-12px);animation:slotIn .45s var(--ease) forwards}
+  @keyframes slotIn{to{opacity:1;transform:none}}
+  .slot .h{font-family:Anton,sans-serif;font-size:1.6rem;color:var(--gold-2);line-height:1}
+  .slot b{display:block;font-size:1.02rem}
+  .slot small{color:var(--muted);font-size:.82rem}
+  .slot a{font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap}
+  @media(max-width:560px){.days button{font-size:.72rem;padding:.7rem 0}.slot{grid-template-columns:64px 1fr}.slot .h{font-size:1.3rem}.slot a{grid-column:2}}
 
   /* levels */
   .levels{background:var(--bg-2);border-block:1px solid var(--line)}
@@ -209,6 +230,10 @@
   .cta .actions{display:flex;flex-direction:column;gap:.8rem;align-items:flex-start}
   @media(max-width:860px){.cta{grid-template-columns:1fr}}
 
+  .addr{display:flex;gap:.7rem;align-items:flex-start;margin-top:.6rem;color:#cfcbc2;font-size:.88rem;line-height:1.45;transition:color .2s}
+  .addr:hover{color:var(--gold-2)}
+  .addr svg{width:20px;height:20px;color:var(--gold);flex:none;margin-top:2px}
+  .addr b{display:block;color:var(--text)}
   footer{padding:3rem 0 6rem;border-top:1px solid var(--line);margin-top:clamp(80px,10vw,120px);color:var(--muted);font-size:.9rem}
   .foot{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center}
   .foot a:hover{color:var(--gold)}
@@ -319,9 +344,9 @@
     </a>
     <nav class="nav-links">
       <a href="#modalidades">Modalidades</a>
+      <a href="#horarios">Horários</a>
       <a href="#niveis">Para quem é</a>
-      <a href="#familia">A família</a>
-      <a href="#aula">Aula experimental</a>
+            <a href="#aula">Aula experimental</a>
     </nav>
     <a class="btn btn-gold js-wa" href="#">Agendar aula</a>
   </div>
@@ -372,18 +397,18 @@
   <!-- MARQUEE -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Jiu-Jitsu</span><span>Luta Livre</span><span>Luta Livre Feminina</span><span>Muay Thai</span><span>Boxe Kids</span><span>MMA</span>
-      <span>Jiu-Jitsu</span><span>Luta Livre</span><span>Luta Livre Feminina</span><span>Muay Thai</span><span>Boxe Kids</span><span>MMA</span>
+      <span>Jiu-Jitsu</span><span>Luta Livre</span><span>Luta Livre Feminina</span><span>Muay Thai</span><span>Boxe</span><span>Boxe Kids</span><span>MMA</span>
+      <span>Jiu-Jitsu</span><span>Luta Livre</span><span>Luta Livre Feminina</span><span>Muay Thai</span><span>Boxe</span><span>Boxe Kids</span><span>MMA</span>
     </div>
   </div>
 
-  <!-- MODALIDADES (horários: CONFIRMAR com a academia) -->
+  <!-- MODALIDADES (horários tirados dos destaques do Instagram) -->
   <section id="modalidades">
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Modalidades</div>
         <h2 class="display">Escolha sua <span class="gold-text">luta</span></h2>
-        <p>Seis modalidades, um só lugar. Comece por qualquer uma com uma aula experimental.</p>
+        <p>Sete modalidades, um só lugar. Comece por qualquer uma com uma aula gratuita.</p>
       </div>
 
       <div class="grid stagger">
@@ -391,44 +416,78 @@
           <span class="num">01</span><span class="tag">Adulto</span>
           <h3>Jiu-Jitsu</h3>
           <p>Técnica, alavanca e controle. A base para quem quer evoluir no chão.</p>
+          <div class="prof">Prof. Florisvaldo</div>
           <div class="time"><svg><use href="#clock"/></svg>Segunda e quarta · 7h</div>
-          <a class="link js-wa" data-mod="Jiu-Jitsu" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+          <a class="link js-wa" data-mod="Jiu-Jitsu" href="#">Agendar aula gratuita <svg><use href="#arrow"/></svg></a>
         </article>
         <article class="card">
           <span class="num">02</span><span class="tag">Esportiva</span>
           <h3>Luta Livre</h3>
           <p>Agarre e finalização sem kimono, com ritmo intenso e muita troca no treino.</p>
+          <div class="prof">Prof. Herbeth Índio</div>
           <div class="time"><svg><use href="#clock"/></svg>Segunda e quarta · 20h20</div>
-          <a class="link js-wa" data-mod="Luta Livre" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+          <a class="link js-wa" data-mod="Luta Livre Esportiva" href="#">Agendar aula gratuita <svg><use href="#arrow"/></svg></a>
         </article>
         <article class="card">
           <span class="num">03</span><span class="tag">Feminina</span>
           <h3>Luta Livre Feminina</h3>
           <p>Turma só para mulheres. Defesa pessoal, condicionamento e confiança.</p>
+          <div class="prof">Prof. Thayanne</div>
           <div class="time"><svg><use href="#clock"/></svg>Sexta 19h · Sábado 15h</div>
-          <a class="link js-wa" data-mod="Luta Livre Feminina" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+          <a class="link js-wa" data-mod="Luta Livre Feminina" href="#">Agendar aula gratuita <svg><use href="#arrow"/></svg></a>
         </article>
         <article class="card">
           <span class="num">04</span><span class="tag">Trocação</span>
           <h3>Muay Thai</h3>
           <p>Socos, chutes, joelhadas e cotoveladas. Explosão e resistência em cada round.</p>
+          <div class="prof">Prof. Alex Reis</div>
           <div class="time"><svg><use href="#clock"/></svg>Segunda e quarta · 19h20</div>
-          <a class="link js-wa" data-mod="Muay Thai" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+          <a class="link js-wa" data-mod="Muay Thai" href="#">Agendar aula gratuita <svg><use href="#arrow"/></svg></a>
         </article>
         <article class="card">
-          <span class="num">05</span><span class="tag">Infantil</span>
+          <span class="num">05</span><span class="tag">Adulto</span>
+          <h3>Boxe</h3>
+          <p>Jab, direto, esquiva e movimentação. Condicionamento de verdade logo cedo.</p>
+          <div class="prof">Prof. Daniel Araújo</div>
+          <div class="time"><svg><use href="#clock"/></svg>Terça e quinta · 8h</div>
+          <a class="link js-wa" data-mod="Boxe" href="#">Agendar aula gratuita <svg><use href="#arrow"/></svg></a>
+        </article>
+        <article class="card">
+          <span class="num">06</span><span class="tag">Infantil</span>
           <h3>Boxe Kids</h3>
           <p>Disciplina, coordenação e respeito para os pequenos, em um ambiente seguro.</p>
-          <div class="time"><svg><use href="#clock"/></svg>Terça e quinta · fim da tarde</div>
-          <a class="link js-wa" data-mod="Boxe Kids" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+          <div class="prof">Prof. Odair Samuray</div>
+          <div class="time"><svg><use href="#clock"/></svg>Terça e quinta · 18h30</div>
+          <a class="link js-wa" data-mod="Boxe Kids" href="#">Agendar aula gratuita <svg><use href="#arrow"/></svg></a>
         </article>
         <article class="card">
-          <span class="num">06</span><span class="tag">Completo</span>
+          <span class="num">07</span><span class="tag">Amador</span>
           <h3>MMA</h3>
           <p>Tudo junto: em pé e no chão. O treino que forma atletas do octógono.</p>
-          <div class="time"><svg><use href="#clock"/></svg>Consulte os horários</div>
-          <a class="link js-wa" data-mod="MMA" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+          <div class="prof">Prof. Herbeth Índio</div>
+          <div class="time"><svg><use href="#clock"/></svg>Segunda e quarta · 21h10</div>
+          <a class="link js-wa" data-mod="MMA Amador" href="#">Agendar aula gratuita <svg><use href="#arrow"/></svg></a>
         </article>
+        <article class="card card-cta">
+          <span class="tag">Na dúvida?</span>
+          <h3>Não sabe por onde começar?</h3>
+          <p>Fale com a equipe e descubra a modalidade certa para o seu objetivo.</p>
+          <a class="btn btn-gold js-wa" href="#" style="margin-top:1.4rem"><svg><use href="#wa"/></svg>Falar no WhatsApp</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADE SEMANAL -->
+  <section id="horarios" class="schedule" style="padding-top:0">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Horários</div>
+        <h2 class="display">Sua semana no <span class="gold-text">tatame</span></h2>
+      </div>
+      <div class="sched reveal">
+        <div class="days" role="tablist"></div>
+        <ul class="slots" id="slots"></ul>
       </div>
     </div>
   </section>
@@ -473,7 +532,7 @@
         <h2 class="display">Treine onde se<br>formam <span class="gold-text">campeões</span></h2>
         <p>A Bonfim Brothers é a academia dos irmãos Gabriel e Ismael Bonfim, lutadores brasilienses que levaram o nome da família para os maiores eventos de MMA do mundo. Aqui, o aluno iniciante treina no mesmo espaço e com a mesma exigência de quem compete profissionalmente.</p>
         <div class="stats">
-          <div class="stat"><b class="count" data-to="6">0</b><span>modalidades</span></div>
+          <div class="stat"><b class="count" data-to="7">0</b><span>modalidades</span></div>
           <div class="stat"><b class="count" data-to="3">0</b><span>níveis de turma</span></div>
           <div class="stat"><b>DF</b><span>orgulho de Brasília</span></div>
         </div>
@@ -504,13 +563,17 @@
 
       <div class="cta reveal" style="margin-top:clamp(56px,8vw,90px)">
         <div>
-          <div class="eyebrow">Sua primeira aula</div>
+          <div class="eyebrow">Primeira aula gratuita</div>
           <h2 class="display" style="margin-top:.8rem">Entre no <span class="gold-text">tatame</span><br>essa semana</h2>
-          <p>Agende sua aula experimental e sinta na prática o treino da Bonfim Brothers.</p>
+          <p>A primeira aula é gratuita. Agende e sinta na prática o treino da Bonfim Brothers.</p>
         </div>
         <div class="actions">
           <a class="btn btn-gold js-wa" href="#"><svg><use href="#wa"/></svg>Agendar pelo WhatsApp</a>
           <a class="btn btn-ghost" href="https://www.instagram.com/bonfim_brothers/" target="_blank" rel="noopener"><svg><use href="#ig"/></svg>@bonfim_brothers</a>
+          <a class="addr" href="https://www.google.com/maps/search/?api=1&query=CT+Bonfim+Brothers+Quadra+1+Conjunto+6+Lote+4+S%C3%A3o+Bartolomeu" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Zm0-9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
+            <span><b>CT Bonfim Brothers</b>Quadra 1, Conjunto 6, Lote 4<br>Bairro São Bartolomeu · <u>Ver no mapa</u></span>
+          </a>
         </div>
       </div>
     </div>
@@ -536,12 +599,44 @@
 <script>
   // WhatsApp com mensagem pronta por modalidade
   const PHONE = '5561993387797';
-  document.querySelectorAll('.js-wa').forEach(a => {
-    const mod = a.dataset.mod;
-    const msg = mod ? `Olá! Quero agendar uma aula experimental de ${mod}.` : 'Olá! Quero agendar uma aula experimental.';
-    a.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
-    a.target = '_blank'; a.rel = 'noopener';
-  });
+  function wireWa(root){
+    root.querySelectorAll('.js-wa').forEach(a => {
+      const mod = a.dataset.mod;
+      const msg = mod ? `Olá! Quero agendar uma aula gratuita de ${mod}.` : 'Olá! Quero agendar uma aula gratuita.';
+      a.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+      a.target = '_blank'; a.rel = 'noopener';
+    });
+  }
+  wireWa(document);
+
+  // Grade semanal
+  const AULAS = [
+    {d:[1,3], h:'7h',    m:'Jiu-Jitsu',            p:'Florisvaldo'},
+    {d:[2,4], h:'8h',    m:'Boxe',                 p:'Daniel Araújo'},
+    {d:[2,4], h:'18h30', m:'Boxe Kids',            p:'Odair Samuray'},
+    {d:[5],   h:'19h',   m:'Luta Livre Feminina',  p:'Thayanne'},
+    {d:[1,3], h:'19h20', m:'Muay Thai',            p:'Alex Reis'},
+    {d:[1,3], h:'20h20', m:'Luta Livre Esportiva', p:'Herbeth Índio'},
+    {d:[1,3], h:'21h10', m:'MMA Amador',           p:'Herbeth Índio'},
+    {d:[6],   h:'15h',   m:'Luta Livre Feminina',  p:'Thayanne'},
+  ];
+  const NOMES = ['','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const daysEl = document.querySelector('.days'), slotsEl = document.getElementById('slots');
+  const hoje = new Date().getDay();
+  const toMin = h => { const [a,b='0'] = h.split('h'); return (+a)*60 + (+b||0); };
+  function showDay(n){
+    daysEl.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', +b.dataset.d === n));
+    const lista = AULAS.filter(a => a.d.includes(n)).sort((x,y) => toMin(x.h) - toMin(y.h));
+    slotsEl.innerHTML = lista.map((a,i) => `<li class="slot" style="animation-delay:${i*70}ms"><span class="h">${a.h}</span><span><b>${a.m}</b><small>Prof. ${a.p}</small></span><a class="js-wa" data-mod="${a.m}" href="#">Agendar →</a></li>`).join('');
+    wireWa(slotsEl);
+  }
+  for (let n = 1; n <= 6; n++) {
+    const b = document.createElement('button'); b.type = 'button'; b.role = 'tab'; b.dataset.d = n;
+    b.innerHTML = NOMES[n] + (n === hoje ? '<i class="today" title="Hoje"></i>' : '');
+    b.onclick = () => showDay(n); daysEl.appendChild(b);
+  }
+
+  showDay(hoje >= 1 && hoje <= 6 ? hoje : 1);
 
   // Header ao rolar
   const header = document.querySelector('header');
