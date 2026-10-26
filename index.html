@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bonfim Brothers | Academia de Artes Marciais</title>
+<meta name="description" content="Bonfim Brothers — academia de artes marciais em Brasília. Jiu-Jitsu, Luta Livre, Muay Thai, Boxe Kids e MMA. Agende sua aula experimental.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --bg-2:#111113;
+    --surface:#16161a;
+    --line:rgba(255,255,255,.08);
+    --gold:#e2b23c;
+    --gold-2:#f5d67a;
+    --gold-dark:#a87a17;
+    --text:#f4f1ea;
+    --muted:#9a968d;
+    --green:#1f9d55;
+    --radius:14px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{width:min(1180px,100% - 32px);margin-inline:auto}
+  .display{font-family:Anton,Impact,sans-serif;text-transform:uppercase;letter-spacing:.01em;line-height:.92;font-weight:400}
+  .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+  .gold-text{background:linear-gradient(100deg,var(--gold-dark) 0%,var(--gold) 30%,var(--gold-2) 50%,var(--gold) 70%,var(--gold-dark) 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+  @keyframes shine{to{background-position:-220% center}}
+
+  /* grain */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.06;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 1.6rem;border-radius:999px;font-weight:700;font-size:.95rem;letter-spacing:.02em;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s}
+  .btn-gold{background:linear-gradient(135deg,var(--gold-2),var(--gold) 45%,var(--gold-dark));color:#141006;box-shadow:0 10px 30px -10px rgba(226,178,60,.6)}
+  .btn-gold:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 16px 40px -10px rgba(226,178,60,.8)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.18);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .btn svg{width:18px;height:18px}
+
+  /* nav */
+  header{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
+  header.scrolled{background:rgba(10,10,11,.82);backdrop-filter:blur(12px);border-color:var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .brand{display:flex;align-items:center;gap:.75rem}
+  .brand-mark{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#2a2310,#0d0c08);border:2px solid var(--gold);box-shadow:0 0 0 3px rgba(226,178,60,.15)}
+  .brand-mark span{font-family:Anton,sans-serif;font-size:1.05rem;color:var(--gold);letter-spacing:.02em}
+  .brand-name{font-family:Anton,sans-serif;font-size:1.15rem;letter-spacing:.06em;text-transform:uppercase}
+  .brand-name small{display:block;font-family:Inter,sans-serif;font-size:.6rem;letter-spacing:.3em;color:var(--muted);font-weight:600}
+  .nav-links{display:flex;gap:2rem;font-size:.9rem;color:#cfcbc2}
+  .nav-links a{position:relative}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--gold);transition:width .3s var(--ease)}
+  .nav-links a:hover{color:#fff}
+  .nav-links a:hover::after{width:100%}
+  .nav .btn{padding:.7rem 1.2rem;font-size:.85rem}
+  @media(max-width:860px){.nav-links{display:none}.nav .btn{display:none}}
+
+  /* hero */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:120px 0 80px;overflow:hidden;isolation:isolate}
+  .hero-bg{position:absolute;inset:0;z-index:-2;
+    background:
+      radial-gradient(60% 55% at 78% 40%,rgba(226,178,60,.18),transparent 70%),
+      radial-gradient(40% 40% at 10% 90%,rgba(226,178,60,.08),transparent 70%),
+      linear-gradient(180deg,#0a0a0b 0%,#0d0c0a 100%)}
+  .octagon{position:absolute;right:-8%;top:50%;width:min(760px,90vw);aspect-ratio:1;transform:translateY(-50%);z-index:-1;opacity:.55;animation:spin 80s linear infinite}
+  .octagon polygon{fill:none;stroke:url(#g);stroke-width:1}
+  @keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+  .hero-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+  .hero h1{font-size:clamp(3.2rem,9vw,7.6rem);margin:1.1rem 0 1.4rem}
+  .hero h1 .line{display:block;overflow:hidden}
+  .hero h1 .line span{display:block;transform:translateY(105%);animation:rise 1s var(--ease) forwards}
+  .hero h1 .line:nth-child(2) span{animation-delay:.12s}
+  .hero h1 .line:nth-child(3) span{animation-delay:.24s}
+  @keyframes rise{to{transform:none}}
+  .hero p.lead{font-size:clamp(1.02rem,1.5vw,1.18rem);color:#cfcbc2;max-width:30rem}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+  .fade-in{opacity:0;transform:translateY(16px);animation:fadeUp .9s var(--ease) forwards}
+  .d1{animation-delay:.45s}.d2{animation-delay:.6s}.d3{animation-delay:.75s}.d4{animation-delay:.9s}
+  @keyframes fadeUp{to{opacity:1;transform:none}}
+
+  .fight-card{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));border:1px solid rgba(226,178,60,.28);border-radius:22px;padding:1.8rem;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+  .fight-card::before{content:"";position:absolute;inset:-1px;border-radius:22px;padding:1px;background:linear-gradient(140deg,var(--gold),transparent 40%,transparent 60%,var(--gold));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.6}
+  .live{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .live i{width:8px;height:8px;border-radius:50%;background:#e5484d;box-shadow:0 0 0 0 rgba(229,72,77,.7);animation:pulse 1.6s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 10px rgba(229,72,77,0)}100%{box-shadow:0 0 0 0 rgba(229,72,77,0)}}
+  .fight-card h3{font-size:clamp(2.2rem,4vw,3rem);margin:.8rem 0 .3rem}
+  .fight-card h3 em{font-style:normal;color:var(--muted);font-size:.55em;vertical-align:middle;margin:0 .3em}
+  .fight-card .meta{color:var(--muted);font-size:.9rem}
+  .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:1.4rem}
+  .countdown div{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:.8rem .3rem;text-align:center}
+  .countdown b{display:block;font-family:Anton,sans-serif;font-size:1.9rem;font-weight:400;color:var(--gold-2);line-height:1}
+  .countdown small{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+  .fight-card .note{margin-top:1.2rem;font-size:.88rem;color:#cfcbc2;border-top:1px solid var(--line);padding-top:1rem}
+
+  .scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);width:24px;height:38px;border:2px solid rgba(255,255,255,.25);border-radius:14px}
+  .scroll-hint::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--gold);animation:scrollDot 1.8s infinite}
+  @keyframes scrollDot{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
+
+  @media(max-width:960px){
+    .hero-inner{grid-template-columns:1fr}
+    .octagon{right:-40%;opacity:.35}
+    .scroll-hint{display:none}
+  }
+
+  /* marquee */
+  .marquee{border-block:1px solid var(--line);background:#0e0d0b;overflow:hidden;padding:1.1rem 0}
+  .marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 28s linear infinite}
+  .marquee span{font-family:Anton,sans-serif;font-size:1.6rem;text-transform:uppercase;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1px rgba(226,178,60,.65);white-space:nowrap;display:flex;align-items:center;gap:3rem}
+  .marquee span::after{content:"✦";-webkit-text-stroke:0;color:var(--gold);font-size:1rem}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* sections */
+  section{padding:clamp(80px,11vw,140px) 0}
+  .section-head{max-width:44rem;margin-bottom:3.2rem}
+  .section-head h2{font-size:clamp(2.4rem,5.5vw,4.4rem);margin-top:.9rem}
+  .section-head p{color:var(--muted);margin-top:1rem;font-size:1.05rem}
+
+  /* modalidades */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+  @media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;overflow:hidden;transition:transform .35s var(--ease),border-color .35s}
+  .card::after{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(226,178,60,.13),transparent 45%);opacity:0;transition:opacity .35s;pointer-events:none}
+  .card:hover{transform:translateY(-6px);border-color:rgba(226,178,60,.45)}
+  .card:hover::after{opacity:1}
+  .card .num{font-family:Anton,sans-serif;font-size:4.5rem;line-height:1;color:rgba(255,255,255,.04);position:absolute;right:1rem;top:.6rem;transition:color .35s}
+  .card:hover .num{color:rgba(226,178,60,.12)}
+  .card .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;background:rgba(226,178,60,.1);color:var(--gold);border:1px solid rgba(226,178,60,.25)}
+  .card h3{font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:2rem;line-height:1;margin:1.1rem 0 .6rem}
+  .card p{color:var(--muted);font-size:.95rem}
+  .card .time{display:flex;align-items:center;gap:.55rem;margin-top:1.4rem;padding-top:1.1rem;border-top:1px dashed var(--line);font-weight:600;font-size:.92rem}
+  .card .time svg{width:17px;height:17px;color:var(--gold);flex:none}
+  .card .link{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;font-size:.85rem;font-weight:700;color:var(--gold)}
+  .card .link svg{width:15px;transition:transform .3s var(--ease)}
+  .card:hover .link svg{transform:translateX(4px)}
+
+  /* levels */
+  .levels{background:var(--bg-2);border-block:1px solid var(--line)}
+  .levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+  .level{padding:2.4rem 2rem;border-right:1px solid var(--line);position:relative;transition:background .35s}
+  .level:last-child{border-right:0}
+  .level:hover{background:rgba(226,178,60,.05)}
+  .level .bar{display:flex;gap:6px;margin-bottom:1.6rem}
+  .level .bar i{height:6px;flex:1;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;position:relative}
+  .level .bar i.on::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease)}
+  .reveal.in .bar i.on::after{transform:scaleX(1)}
+  .level .bar i.on:nth-child(2)::after{transition-delay:.15s}
+  .level .bar i.on:nth-child(3)::after{transition-delay:.3s}
+  .level h3{font-family:Anton,sans-serif;font-weight:400;font-size:2.1rem;text-transform:uppercase;line-height:1}
+  .level p{color:var(--muted);margin-top:.8rem}
+  @media(max-width:860px){.levels-grid{grid-template-columns:1fr}.level{border-right:0;border-bottom:1px solid var(--line)}.level:last-child{border-bottom:0}}
+
+  /* team / family */
+  .family{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+  @media(max-width:900px){.family{grid-template-columns:1fr}}
+  .family-visual{position:relative;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:
+      linear-gradient(180deg,rgba(10,10,11,0) 40%,rgba(10,10,11,.95)),
+      radial-gradient(70% 60% at 50% 30%,rgba(226,178,60,.22),transparent 70%),
+      repeating-linear-gradient(135deg,#141310 0 14px,#100f0c 14px 28px);border:1px solid var(--line)}
+  .family-visual .ph{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.18);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-align:center;padding:2rem}
+  .family-visual .ph svg{width:120px;height:120px;color:rgba(226,178,60,.35);margin:0 auto 1rem}
+  .family-visual .caption{position:absolute;left:1.6rem;right:1.6rem;bottom:1.6rem}
+  .family-visual .caption b{font-family:Anton,sans-serif;font-weight:400;font-size:2.4rem;text-transform:uppercase;line-height:1;display:block}
+  .family-visual .caption span{color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+  .family h2{font-size:clamp(2.4rem,5vw,4rem);margin:.9rem 0 1.2rem}
+  .family p{color:#cfcbc2;font-size:1.05rem}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.2rem}
+  .stat{border-left:2px solid var(--gold);padding-left:1rem}
+  .stat b{font-family:Anton,sans-serif;font-weight:400;font-size:2.6rem;line-height:1;display:block}
+  .stat span{font-size:.82rem;color:var(--muted)}
+
+  /* quote */
+  .quote{text-align:center;position:relative;overflow:hidden}
+  .quote h2{font-size:clamp(2.6rem,8vw,6.8rem);max-width:15ch;margin:1rem auto 0}
+  .quote .lion{width:84px;height:84px;margin:0 auto;color:var(--gold);opacity:.9}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;counter-reset:s}
+  @media(max-width:860px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;position:relative}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:Anton,sans-serif;font-size:1rem;color:#141006;background:var(--gold);width:42px;height:42px;border-radius:50%;display:grid;place-items:center;margin-bottom:1.2rem}
+  .step h3{font-size:1.15rem;margin-bottom:.4rem}
+  .step p{color:var(--muted);font-size:.95rem}
+
+  /* cta */
+  .cta{position:relative;border-radius:28px;overflow:hidden;padding:clamp(48px,7vw,90px) clamp(24px,5vw,72px);background:
+      radial-gradient(70% 120% at 100% 0%,rgba(226,178,60,.35),transparent 60%),
+      linear-gradient(135deg,#17140b,#0b0a08);border:1px solid rgba(226,178,60,.3);display:grid;grid-template-columns:1.3fr .7fr;gap:2rem;align-items:center}
+  .cta h2{font-size:clamp(2.4rem,5.5vw,4.6rem)}
+  .cta p{color:#cfcbc2;margin-top:1rem;max-width:32rem}
+  .cta .actions{display:flex;flex-direction:column;gap:.8rem;align-items:flex-start}
+  @media(max-width:860px){.cta{grid-template-columns:1fr}}
+
+  footer{padding:3rem 0 6rem;border-top:1px solid var(--line);margin-top:clamp(80px,10vw,120px);color:var(--muted);font-size:.9rem}
+  .foot{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center}
+  .foot a:hover{color:var(--gold)}
+  .foot .socials{display:flex;gap:1.2rem}
+
+  /* floating whatsapp */
+  .wa{position:fixed;right:18px;bottom:18px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(37,211,102,.6);transition:transform .25s var(--ease)}
+  .wa:hover{transform:scale(1.08)}
+  .wa svg{width:30px;height:30px;color:#fff}
+  .wa::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:ring 2.2s infinite}
+  @keyframes ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.08s}
+  .stagger.in>*:nth-child(3){transition-delay:.16s}
+  .stagger.in>*:nth-child(4){transition-delay:.24s}
+  .stagger.in>*:nth-child(5){transition-delay:.32s}
+  .stagger.in>*:nth-child(6){transition-delay:.4s}
+
+  /* ===== INTRO ===== */
+  body.intro-on{overflow:hidden}
+  .hero h1 .line span,.fade-in{animation-play-state:paused}
+  body.loaded .hero h1 .line span,body.loaded .fade-in{animation-play-state:running}
+  .intro{position:fixed;inset:0;z-index:200;display:grid;place-items:center;pointer-events:all;cursor:pointer}
+  .intro .panel{position:absolute;left:0;right:0;height:50.5%;background:#070707;transition:transform 1s cubic-bezier(.77,0,.18,1)}
+  .intro .panel.top{top:0}
+  .intro .panel.bot{bottom:0}
+  .intro .panel::after{content:"";position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+  .intro .panel.top::after{bottom:0}.intro .panel.bot::after{top:0}
+  .intro.split .panel::after{opacity:1}
+  .intro.open .panel.top{transform:translateY(-101%)}
+  .intro.open .panel.bot{transform:translateY(101%)}
+  .intro-content{position:relative;z-index:1;text-align:center;transition:opacity .45s,transform .6s var(--ease)}
+  .intro.split .intro-content{opacity:0;transform:scale(1.08)}
+  .intro-emblem{position:relative;width:150px;height:150px;margin:0 auto}
+  .intro-emblem svg.oct{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .intro-emblem svg.oct polygon{fill:none;stroke:var(--gold);stroke-width:2.5;stroke-dasharray:700;stroke-dashoffset:700;animation:draw 1.3s .15s cubic-bezier(.65,0,.35,1) forwards}
+  .intro-emblem svg.oct polygon+polygon{stroke-width:1;opacity:.4;animation-delay:.35s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .intro-emblem .lion-i{position:absolute;inset:0;margin:auto;width:70px;height:70px;color:var(--gold);opacity:0;transform:scale(.4) rotate(-12deg);animation:lionIn .8s .9s cubic-bezier(.34,1.56,.64,1) forwards;filter:drop-shadow(0 0 0 rgba(226,178,60,0))}
+  @keyframes lionIn{to{opacity:1;transform:none;filter:drop-shadow(0 0 22px rgba(226,178,60,.65))}}
+  .intro-emblem::before{content:"";position:absolute;inset:-40%;border-radius:50%;background:radial-gradient(circle,rgba(226,178,60,.25),transparent 60%);opacity:0;animation:glow 1.2s 1s ease-out forwards}
+  @keyframes glow{50%{opacity:1}100%{opacity:.35}}
+  .intro-title{font-family:Anton,sans-serif;text-transform:uppercase;font-size:clamp(2rem,7vw,3.6rem);letter-spacing:.08em;margin-top:1.6rem;display:flex;justify-content:center;flex-wrap:wrap;gap:0 .35em;line-height:1}
+  .intro-title .w{display:inline-flex;overflow:hidden}
+  .intro-title .ch{display:inline-block;transform:translateY(110%);animation:rise .6s cubic-bezier(.2,.8,.2,1) forwards}
+  .intro-sub{margin-top:.9rem;font-size:.72rem;letter-spacing:.45em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp .7s 1.9s forwards}
+  .intro-bar{width:180px;height:2px;margin:1.4rem auto 0;background:rgba(255,255,255,.08);overflow:hidden;border-radius:2px}
+  .intro-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold-2));transform:scaleX(0);transform-origin:left;animation:load 2.2s .2s cubic-bezier(.65,0,.35,1) forwards}
+  @keyframes load{to{transform:scaleX(1)}}
+  .intro.gone{display:none}
+
+  @media(prefers-reduced-motion:reduce){
+    .intro{display:none}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal,.stagger>*,.fade-in,.hero h1 .line span{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body class="intro-on">
+
+<!-- INTRO (clique para pular) -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="panel top"></div>
+  <div class="panel bot"></div>
+  <div class="intro-content">
+    <div class="intro-emblem">
+      <svg class="oct" viewBox="0 0 200 200">
+        <polygon points="58.6,4 141.4,4 196,58.6 196,141.4 141.4,196 58.6,196 4,141.4 4,58.6"/>
+        <polygon points="66,20 134,20 180,66 180,134 134,180 66,180 20,134 20,66"/>
+      </svg>
+      <svg class="lion-i"><use href="#lion"/></svg>
+    </div>
+    <div class="intro-title" id="introTitle" data-text="Bonfim Brothers"></div>
+    <div class="intro-sub">Mixed Martial Arts</div>
+    <div class="intro-bar"><i></i></div>
+  </div>
+</div>
+
+<!-- Ícone reutilizável (leão estilizado simples — trocar pela logo oficial em PNG/SVG) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5d67a"/><stop offset=".5" stop-color="#e2b23c" stop-opacity=".3"/><stop offset="1" stop-color="#a87a17"/>
+    </linearGradient>
+    <symbol id="lion" viewBox="0 0 64 64"><path fill="currentColor" d="M32 4c-3 4-8 5-12 4 1 4-1 8-4 10 3 2 4 6 3 10-3 0-6 2-7 5 3 1 5 4 5 7 3-1 6 0 8 2 1 5 4 10 7 12 3-2 6-7 7-12 2-2 5-3 8-2 0-3 2-6 5-7-1-3-4-5-7-5-1-4 0-8 3-10-3-2-5-6-4-10-4 1-9 0-12-4Zm-8 26a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm16 0a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM32 40l4 4-4 5-4-5 4-4Z"/></symbol>
+    <symbol id="clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.4-.3Z"/></symbol>
+    <symbol id="ig" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 5.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9ZM17.5 6.5h.01"/></symbol>
+  </defs>
+</svg>
+
+<header id="top">
+  <div class="container nav">
+    <a href="#top" class="brand" aria-label="Bonfim Brothers">
+      <!-- TROCAR pela logo oficial: <img src="logo.png" width="44" height="44" alt="Bonfim Brothers"> -->
+      <div class="brand-mark"><svg width="26" height="26" style="color:var(--gold)"><use href="#lion"/></svg></div>
+      <div class="brand-name">Bonfim Brothers<small>Mixed Martial Arts</small></div>
+    </a>
+    <nav class="nav-links">
+      <a href="#modalidades">Modalidades</a>
+      <a href="#niveis">Para quem é</a>
+      <a href="#familia">A família</a>
+      <a href="#aula">Aula experimental</a>
+    </nav>
+    <a class="btn btn-gold js-wa" href="#">Agendar aula</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="padding-top:120px">
+    <div class="hero-bg"></div>
+    <svg class="octagon" viewBox="0 0 200 200" aria-hidden="true">
+      <polygon points="58.6,0 141.4,0 200,58.6 200,141.4 141.4,200 58.6,200 0,141.4 0,58.6"/>
+      <polygon points="66,18 134,18 182,66 182,134 134,182 66,182 18,134 18,66" opacity=".6"/>
+      <polygon points="74,36 126,36 164,74 164,126 126,164 74,164 36,126 36,74" opacity=".35"/>
+    </svg>
+
+    <div class="container hero-inner">
+      <div>
+        <div class="eyebrow fade-in">Academia de Artes Marciais · Brasília</div>
+        <h1 class="display">
+          <span class="line"><span>Não é apenas</span></span>
+          <span class="line"><span>um treino.</span></span>
+          <span class="line"><span class="gold-text">É estilo de vida.</span></span>
+        </h1>
+        <p class="lead fade-in d1">Jiu-Jitsu, Luta Livre, Muay Thai, Boxe e MMA para iniciantes, intermediários e profissionais. Treine na casa dos irmãos Bonfim.</p>
+        <div class="hero-ctas fade-in d2">
+          <a class="btn btn-gold js-wa" href="#"><svg><use href="#wa"/></svg>Agende uma aula experimental</a>
+          <a class="btn btn-ghost" href="#modalidades">Ver modalidades <svg><use href="#arrow"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Card da luta: remover depois de 7/11 ou trocar pela próxima luta -->
+      <aside class="fight-card fade-in d3" aria-label="Próxima luta">
+        <div class="live"><i></i> Próxima luta</div>
+        <h3 class="display">Bonfim <em>x</em> Brady</h3>
+        <div class="meta">Peso meio-médio · Sábado, 7 de novembro</div>
+        <div class="countdown" id="countdown">
+          <div><b data-u="d">00</b><small>dias</small></div>
+          <div><b data-u="h">00</b><small>horas</small></div>
+          <div><b data-u="m">00</b><small>min</small></div>
+          <div><b data-u="s">00</b><small>seg</small></div>
+        </div>
+        <p class="note">A equipe que prepara o Gabriel é a mesma que vai te receber no tatame.</p>
+      </aside>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"></div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Jiu-Jitsu</span><span>Luta Livre</span><span>Luta Livre Feminina</span><span>Muay Thai</span><span>Boxe Kids</span><span>MMA</span>
+      <span>Jiu-Jitsu</span><span>Luta Livre</span><span>Luta Livre Feminina</span><span>Muay Thai</span><span>Boxe Kids</span><span>MMA</span>
+    </div>
+  </div>
+
+  <!-- MODALIDADES (horários: CONFIRMAR com a academia) -->
+  <section id="modalidades">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Modalidades</div>
+        <h2 class="display">Escolha sua <span class="gold-text">luta</span></h2>
+        <p>Seis modalidades, um só lugar. Comece por qualquer uma com uma aula experimental.</p>
+      </div>
+
+      <div class="grid stagger">
+        <article class="card">
+          <span class="num">01</span><span class="tag">Adulto</span>
+          <h3>Jiu-Jitsu</h3>
+          <p>Técnica, alavanca e controle. A base para quem quer evoluir no chão.</p>
+          <div class="time"><svg><use href="#clock"/></svg>Segunda e quarta · 7h</div>
+          <a class="link js-wa" data-mod="Jiu-Jitsu" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+        </article>
+        <article class="card">
+          <span class="num">02</span><span class="tag">Esportiva</span>
+          <h3>Luta Livre</h3>
+          <p>Agarre e finalização sem kimono, com ritmo intenso e muita troca no treino.</p>
+          <div class="time"><svg><use href="#clock"/></svg>Segunda e quarta · 20h20</div>
+          <a class="link js-wa" data-mod="Luta Livre" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+        </article>
+        <article class="card">
+          <span class="num">03</span><span class="tag">Feminina</span>
+          <h3>Luta Livre Feminina</h3>
+          <p>Turma só para mulheres. Defesa pessoal, condicionamento e confiança.</p>
+          <div class="time"><svg><use href="#clock"/></svg>Sexta 19h · Sábado 15h</div>
+          <a class="link js-wa" data-mod="Luta Livre Feminina" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+        </article>
+        <article class="card">
+          <span class="num">04</span><span class="tag">Trocação</span>
+          <h3>Muay Thai</h3>
+          <p>Socos, chutes, joelhadas e cotoveladas. Explosão e resistência em cada round.</p>
+          <div class="time"><svg><use href="#clock"/></svg>Segunda e quarta · 19h20</div>
+          <a class="link js-wa" data-mod="Muay Thai" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+        </article>
+        <article class="card">
+          <span class="num">05</span><span class="tag">Infantil</span>
+          <h3>Boxe Kids</h3>
+          <p>Disciplina, coordenação e respeito para os pequenos, em um ambiente seguro.</p>
+          <div class="time"><svg><use href="#clock"/></svg>Terça e quinta · fim da tarde</div>
+          <a class="link js-wa" data-mod="Boxe Kids" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+        </article>
+        <article class="card">
+          <span class="num">06</span><span class="tag">Completo</span>
+          <h3>MMA</h3>
+          <p>Tudo junto: em pé e no chão. O treino que forma atletas do octógono.</p>
+          <div class="time"><svg><use href="#clock"/></svg>Consulte os horários</div>
+          <a class="link js-wa" data-mod="MMA" href="#">Agendar experimental <svg><use href="#arrow"/></svg></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NÍVEIS -->
+  <section id="niveis" class="levels">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Para quem é</div>
+        <h2 class="display">Do primeiro dia<br>ao <span class="gold-text">octógono</span></h2>
+      </div>
+      <div class="levels-grid reveal">
+        <div class="level">
+          <div class="bar"><i class="on"></i><i></i><i></i></div>
+          <h3>Iniciantes</h3>
+          <p>Nunca treinou? Você começa do básico, no seu ritmo, com acompanhamento dos professores.</p>
+        </div>
+        <div class="level">
+          <div class="bar"><i class="on"></i><i class="on"></i><i></i></div>
+          <h3>Intermediários</h3>
+          <p>Já tem base e quer evoluir técnica, condicionamento e estratégia de luta.</p>
+        </div>
+        <div class="level">
+          <div class="bar"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          <h3>Profissionais</h3>
+          <p>Preparação para competição ao lado de atletas que lutam no mais alto nível.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAMÍLIA -->
+  <section id="familia">
+    <div class="container family">
+      <div class="family-visual reveal">
+        <!-- TROCAR por uma foto real da academia/treino: <img src="treino.jpg" alt="" style="width:100%;height:100%;object-fit:cover"> -->
+        <div class="ph"><div><svg><use href="#lion"/></svg>Foto da equipe</div></div>
+        <div class="caption"><span>Família Bonfim</span><b>Gabriel &amp; Ismael</b></div>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">A família</div>
+        <h2 class="display">Treine onde se<br>formam <span class="gold-text">campeões</span></h2>
+        <p>A Bonfim Brothers é a academia dos irmãos Gabriel e Ismael Bonfim, lutadores brasilienses que levaram o nome da família para os maiores eventos de MMA do mundo. Aqui, o aluno iniciante treina no mesmo espaço e com a mesma exigência de quem compete profissionalmente.</p>
+        <div class="stats">
+          <div class="stat"><b class="count" data-to="6">0</b><span>modalidades</span></div>
+          <div class="stat"><b class="count" data-to="3">0</b><span>níveis de turma</span></div>
+          <div class="stat"><b>DF</b><span>orgulho de Brasília</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRASE -->
+  <section class="quote">
+    <div class="container reveal">
+      <svg class="lion"><use href="#lion"/></svg>
+      <h2 class="display">Não conte seus sonhos.<br><span class="gold-text">Treine por eles.</span></h2>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="aula" style="padding-top:0">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Aula experimental</div>
+        <h2 class="display">Comece em <span class="gold-text">3 passos</span></h2>
+      </div>
+      <div class="steps stagger">
+        <div class="step"><h3>Chame no WhatsApp</h3><p>Diga qual modalidade quer conhecer. A mensagem já vai pronta.</p></div>
+        <div class="step"><h3>Escolha o horário</h3><p>A equipe confirma o melhor dia e turma para o seu nível.</p></div>
+        <div class="step"><h3>Venha treinar</h3><p>Roupa confortável e água. O resto a gente te ensina no tatame.</p></div>
+      </div>
+
+      <div class="cta reveal" style="margin-top:clamp(56px,8vw,90px)">
+        <div>
+          <div class="eyebrow">Sua primeira aula</div>
+          <h2 class="display" style="margin-top:.8rem">Entre no <span class="gold-text">tatame</span><br>essa semana</h2>
+          <p>Agende sua aula experimental e sinta na prática o treino da Bonfim Brothers.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-gold js-wa" href="#"><svg><use href="#wa"/></svg>Agendar pelo WhatsApp</a>
+          <a class="btn btn-ghost" href="https://www.instagram.com/bonfim_brothers/" target="_blank" rel="noopener"><svg><use href="#ig"/></svg>@bonfim_brothers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container foot">
+    <div class="brand">
+      <div class="brand-mark"><svg width="26" height="26" style="color:var(--gold)"><use href="#lion"/></svg></div>
+      <div class="brand-name">Bonfim Brothers<small>Mixed Martial Arts</small></div>
+    </div>
+    <div class="socials">
+      <a class="js-wa" href="#">(61) 99338-7797</a>
+      <a href="https://www.instagram.com/bonfim_brothers/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <div>© <span id="y"></span> Bonfim Brothers</div>
+  </div>
+</footer>
+
+<a class="wa js-wa" href="#" aria-label="Falar no WhatsApp"><svg><use href="#wa"/></svg></a>
+
+<script>
+  // WhatsApp com mensagem pronta por modalidade
+  const PHONE = '5561993387797';
+  document.querySelectorAll('.js-wa').forEach(a => {
+    const mod = a.dataset.mod;
+    const msg = mod ? `Olá! Quero agendar uma aula experimental de ${mod}.` : 'Olá! Quero agendar uma aula experimental.';
+    a.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+    a.target = '_blank'; a.rel = 'noopener';
+  });
+
+  // Header ao rolar
+  const header = document.querySelector('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Reveal + contadores
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.count').forEach(el => {
+        const to = +el.dataset.to; let n = 0;
+        const t = setInterval(() => { el.textContent = ++n; if (n >= to) clearInterval(t); }, 120);
+      });
+      io.unobserve(e.target);
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal,.stagger').forEach(el => io.observe(el));
+
+  // Brilho que segue o mouse nos cards
+  document.querySelectorAll('.card').forEach(c => c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+
+  // Contagem regressiva — Bonfim x Brady, 7/11 (horário de Brasília; ajustar se souber a hora exata)
+  const target = new Date('2026-11-07T21:00:00-03:00').getTime();
+  const cd = document.getElementById('countdown');
+  const pad = n => String(n).padStart(2,'0');
+  const tick = () => {
+    let d = Math.max(0, target - Date.now()) / 1000;
+    const v = {d:Math.floor(d/86400), h:Math.floor(d%86400/3600), m:Math.floor(d%3600/60), s:Math.floor(d%60)};
+    for (const k in v) cd.querySelector(`[data-u="${k}"]`).textContent = pad(v[k]);
+  };
+  tick(); setInterval(tick, 1000);
+
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // ===== INTRO =====
+  (function(){
+    const intro = document.getElementById('intro');
+    const title = document.getElementById('introTitle');
+    // monta as letras com atraso em cascata
+    let i = 0;
+    title.dataset.text.split(' ').forEach(word => {
+      const w = document.createElement('span'); w.className = 'w';
+      [...word].forEach(c => {
+        const ch = document.createElement('span'); ch.className = 'ch'; ch.textContent = c;
+        ch.style.animationDelay = (1.15 + i++ * 0.045) + 's';
+        w.appendChild(ch);
+      });
+      title.appendChild(w);
+    });
+
+    let done = false;
+    const finish = () => {
+      if (done) return; done = true;
+      intro.classList.add('split');
+      setTimeout(() => {
+        intro.classList.add('open');
+        document.body.classList.remove('intro-on');
+        document.body.classList.add('loaded');
+      }, 350);
+      setTimeout(() => intro.classList.add('gone'), 1450);
+    };
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      intro.classList.add('gone'); document.body.classList.remove('intro-on'); document.body.classList.add('loaded'); return;
+    }
+    intro.addEventListener('click', finish);
+    // espera a página carregar e a animação terminar (~2,5s)
+    const start = performance.now();
+    window.addEventListener('load', () => setTimeout(finish, Math.max(0, 2500 - (performance.now() - start))));
+    setTimeout(finish, 4500); // segurança se a fonte demorar
+  })();
+</script>
+</body>
+</html>
